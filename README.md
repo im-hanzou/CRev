@@ -3,7 +3,7 @@
 # How To
 Please use Python3
 ```
-pip install requests re 
+pip install requests re futures
 ```
 Then
 ```
