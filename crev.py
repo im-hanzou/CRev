@@ -1,7 +1,7 @@
 import requests
 import re
 import os
-import threading
+import concurrent.futures
 import sys
 
 print('''
@@ -37,23 +37,14 @@ def reverse(ip):
         print(f"From IP {ip} we got {total_domains} domains")
         for domain in domains:
             f.write(domain + "\n")
-    
+
 try:
     ips = []
     with open(file_input, "r") as f:
         ips = f.read().splitlines()
 
-    threads_list = []
-    for i in range(threads):
-        try:
-            thread = threading.Thread(target=reverse, args=(ips[i],))
-            threads_list.append(thread)
-            thread.start()
-        except IndexError:
-            break
-
-    for thread in threads_list:
-        thread.join()
+    with concurrent.futures.ThreadPoolExecutor(max_workers=threads) as executor:
+        results = [executor.submit(reverse, ip) for ip in ips]
 
 except KeyboardInterrupt:
     print("\nStopped!")
