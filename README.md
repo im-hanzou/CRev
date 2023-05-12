@@ -1,5 +1,5 @@
 # CReverse IP
-[Python] CReverse IP. Tools for find hosted domains from IPs use threading.
+[Python] CReverse IP. Tools for find hosted domains from IPs use future.
 # How To
 Please use Python3
 ```
